@@ -1,3 +1,6 @@
+# Code Coverage
+[![Coverage Status](https://coveralls.io/repos/github/vochanhtin139/SOFTWARE-TESTING-TEMP-PROJECT/badge.svg)](https://coveralls.io/github/vochanhtin139/SOFTWARE-TESTING-TEMP-PROJECT)
+
 # Simple Calculator GUI
 
 Beautiful Simple Calculator built with Java Swing
