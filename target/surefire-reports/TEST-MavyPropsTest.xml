@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="MavyPropsTest" time="2.556" tests="15" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="MavyPropsTest" time="0.783" tests="15" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="22"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
     <property name="sun.awt.enableExtraMouseButtons" value="true"/>
-    <property name="java.class.path" value="/Users/quynhphan/Documents/KTPM/SOFTWARE-TESTING-TEMP-PROJECT/target/test-classes:/Users/quynhphan/Documents/KTPM/SOFTWARE-TESTING-TEMP-PROJECT/target/classes:/Users/quynhphan/.m2/repository/org/junit/jupiter/junit-jupiter/5.7.2/junit-jupiter-5.7.2.jar:/Users/quynhphan/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.7.2/junit-jupiter-api-5.7.2.jar:/Users/quynhphan/.m2/repository/org/apiguardian/apiguardian-api/1.1.0/apiguardian-api-1.1.0.jar:/Users/quynhphan/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/Users/quynhphan/.m2/repository/org/junit/platform/junit-platform-commons/1.7.2/junit-platform-commons-1.7.2.jar:/Users/quynhphan/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.7.2/junit-jupiter-params-5.7.2.jar:/Users/quynhphan/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.7.2/junit-jupiter-engine-5.7.2.jar:/Users/quynhphan/.m2/repository/org/junit/platform/junit-platform-engine/1.7.2/junit-platform-engine-1.7.2.jar:"/>
+    <property name="java.class.path" value="/Users/quynhphan/Documents/KTPM/SOFTWARE-TESTING-TEMP-PROJECT/target/test-classes:/Users/quynhphan/Documents/KTPM/SOFTWARE-TESTING-TEMP-PROJECT/target/classes:/Users/quynhphan/.m2/repository/org/junit/jupiter/junit-jupiter/5.7.2/junit-jupiter-5.7.2.jar:/Users/quynhphan/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.7.2/junit-jupiter-api-5.7.2.jar:/Users/quynhphan/.m2/repository/org/apiguardian/apiguardian-api/1.1.0/apiguardian-api-1.1.0.jar:/Users/quynhphan/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/Users/quynhphan/.m2/repository/org/junit/platform/junit-platform-commons/1.7.2/junit-platform-commons-1.7.2.jar:/Users/quynhphan/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.7.2/junit-jupiter-params-5.7.2.jar:/Users/quynhphan/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.7.2/junit-jupiter-engine-5.7.2.jar:/Users/quynhphan/.m2/repository/org/junit/platform/junit-platform-engine/1.7.2/junit-platform-engine-1.7.2.jar:/Users/quynhphan/.m2/repository/javax/xml/bind/jaxb-api/2.3.1/jaxb-api-2.3.1.jar:/Users/quynhphan/.m2/repository/javax/activation/javax.activation-api/1.2.0/javax.activation-api-1.2.0.jar:/Users/quynhphan/.m2/repository/org/glassfish/jaxb/jaxb-runtime/2.3.1/jaxb-runtime-2.3.1.jar:/Users/quynhphan/.m2/repository/org/glassfish/jaxb/txw2/2.3.1/txw2-2.3.1.jar:/Users/quynhphan/.m2/repository/com/sun/istack/istack-commons-runtime/3.0.7/istack-commons-runtime-3.0.7.jar:/Users/quynhphan/.m2/repository/org/jvnet/staxex/stax-ex/1.8/stax-ex-1.8.jar:/Users/quynhphan/.m2/repository/com/sun/xml/fastinfoset/FastInfoset/1.2.15/FastInfoset-1.2.15.jar:"/>
     <property name="java.vm.vendor" value="Homebrew"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.vendor.url" value="https://github.com/Homebrew/homebrew-core/issues"/>
@@ -13,10 +13,10 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="VN"/>
     <property name="sun.boot.library.path" value="/usr/local/Cellar/openjdk/22.0.1/libexec/openjdk.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/quynhphan/Documents/KTPM/SOFTWARE-TESTING-TEMP-PROJECT/target/surefire/surefirebooter-20240628092603261_3.jar /Users/quynhphan/Documents/KTPM/SOFTWARE-TESTING-TEMP-PROJECT/target/surefire 2024-06-28T09-26-02_858-jvmRun1 surefire-20240628092603261_1tmp surefire_0-20240628092603261_2tmp"/>
+    <property name="sun.java.command" value="/Users/quynhphan/Documents/KTPM/SOFTWARE-TESTING-TEMP-PROJECT/target/surefire/surefirebooter-20240628093719269_3.jar /Users/quynhphan/Documents/KTPM/SOFTWARE-TESTING-TEMP-PROJECT/target/surefire 2024-06-28T09-37-19_034-jvmRun1 surefire-20240628093719269_1tmp surefire_0-20240628093719269_2tmp"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="jdk.debug" value="release"/>
-    <property name="surefire.test.class.path" value="/Users/quynhphan/Documents/KTPM/SOFTWARE-TESTING-TEMP-PROJECT/target/test-classes:/Users/quynhphan/Documents/KTPM/SOFTWARE-TESTING-TEMP-PROJECT/target/classes:/Users/quynhphan/.m2/repository/org/junit/jupiter/junit-jupiter/5.7.2/junit-jupiter-5.7.2.jar:/Users/quynhphan/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.7.2/junit-jupiter-api-5.7.2.jar:/Users/quynhphan/.m2/repository/org/apiguardian/apiguardian-api/1.1.0/apiguardian-api-1.1.0.jar:/Users/quynhphan/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/Users/quynhphan/.m2/repository/org/junit/platform/junit-platform-commons/1.7.2/junit-platform-commons-1.7.2.jar:/Users/quynhphan/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.7.2/junit-jupiter-params-5.7.2.jar:/Users/quynhphan/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.7.2/junit-jupiter-engine-5.7.2.jar:/Users/quynhphan/.m2/repository/org/junit/platform/junit-platform-engine/1.7.2/junit-platform-engine-1.7.2.jar:"/>
+    <property name="surefire.test.class.path" value="/Users/quynhphan/Documents/KTPM/SOFTWARE-TESTING-TEMP-PROJECT/target/test-classes:/Users/quynhphan/Documents/KTPM/SOFTWARE-TESTING-TEMP-PROJECT/target/classes:/Users/quynhphan/.m2/repository/org/junit/jupiter/junit-jupiter/5.7.2/junit-jupiter-5.7.2.jar:/Users/quynhphan/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.7.2/junit-jupiter-api-5.7.2.jar:/Users/quynhphan/.m2/repository/org/apiguardian/apiguardian-api/1.1.0/apiguardian-api-1.1.0.jar:/Users/quynhphan/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/Users/quynhphan/.m2/repository/org/junit/platform/junit-platform-commons/1.7.2/junit-platform-commons-1.7.2.jar:/Users/quynhphan/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.7.2/junit-jupiter-params-5.7.2.jar:/Users/quynhphan/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.7.2/junit-jupiter-engine-5.7.2.jar:/Users/quynhphan/.m2/repository/org/junit/platform/junit-platform-engine/1.7.2/junit-platform-engine-1.7.2.jar:/Users/quynhphan/.m2/repository/javax/xml/bind/jaxb-api/2.3.1/jaxb-api-2.3.1.jar:/Users/quynhphan/.m2/repository/javax/activation/javax.activation-api/1.2.0/javax.activation-api-1.2.0.jar:/Users/quynhphan/.m2/repository/org/glassfish/jaxb/jaxb-runtime/2.3.1/jaxb-runtime-2.3.1.jar:/Users/quynhphan/.m2/repository/org/glassfish/jaxb/txw2/2.3.1/txw2-2.3.1.jar:/Users/quynhphan/.m2/repository/com/sun/istack/istack-commons-runtime/3.0.7/istack-commons-runtime-3.0.7.jar:/Users/quynhphan/.m2/repository/org/jvnet/staxex/stax-ex/1.8/stax-ex-1.8.jar:/Users/quynhphan/.m2/repository/com/sun/xml/fastinfoset/FastInfoset/1.2.15/FastInfoset-1.2.15.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="/Users/quynhphan"/>
     <property name="user.language" value="en"/>
@@ -30,7 +30,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="apple.awt.application.name" value="ForkedBooter"/>
-    <property name="surefire.real.class.path" value="/Users/quynhphan/Documents/KTPM/SOFTWARE-TESTING-TEMP-PROJECT/target/surefire/surefirebooter-20240628092603261_3.jar"/>
+    <property name="surefire.real.class.path" value="/Users/quynhphan/Documents/KTPM/SOFTWARE-TESTING-TEMP-PROJECT/target/surefire/surefirebooter-20240628093719269_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.runtime.version" value="22.0.1"/>
@@ -59,19 +59,19 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="66.0"/>
   </properties>
-  <testcase name="testForeColor" classname="MavyPropsTest" time="0.004"/>
-  <testcase name="testBlueColor" classname="MavyPropsTest" time="0.003"/>
-  <testcase name="testReverseString_case1" classname="MavyPropsTest" time="0.01"/>
-  <testcase name="testReverseString_case2" classname="MavyPropsTest" time="0.007"/>
-  <testcase name="testDarkColor" classname="MavyPropsTest" time="0.006"/>
-  <testcase name="testYellowColor" classname="MavyPropsTest" time="0.004"/>
-  <testcase name="testGreenColor" classname="MavyPropsTest" time="0.004"/>
-  <testcase name="testRedColor" classname="MavyPropsTest" time="0.002"/>
-  <testcase name="testSurfaceColor" classname="MavyPropsTest" time="0.004"/>
-  <testcase name="testCreateFont" classname="MavyPropsTest" time="2.422"/>
-  <testcase name="testShowStepsConstant" classname="MavyPropsTest" time="0.003"/>
-  <testcase name="testDisabledColor" classname="MavyPropsTest" time="0.001"/>
-  <testcase name="testForceCapitalize_case1" classname="MavyPropsTest" time="0.005"/>
-  <testcase name="testForceCapitalize_case2" classname="MavyPropsTest" time="0.005"/>
-  <testcase name="testForceCapitalize_case3" classname="MavyPropsTest" time="0.002"/>
+  <testcase name="testForeColor" classname="MavyPropsTest" time="0.005"/>
+  <testcase name="testBlueColor" classname="MavyPropsTest" time="0.005"/>
+  <testcase name="testReverseString_case1" classname="MavyPropsTest" time="0.005"/>
+  <testcase name="testReverseString_case2" classname="MavyPropsTest" time="0.001"/>
+  <testcase name="testDarkColor" classname="MavyPropsTest" time="0.003"/>
+  <testcase name="testYellowColor" classname="MavyPropsTest" time="0.006"/>
+  <testcase name="testGreenColor" classname="MavyPropsTest" time="0.002"/>
+  <testcase name="testRedColor" classname="MavyPropsTest" time="0.0"/>
+  <testcase name="testSurfaceColor" classname="MavyPropsTest" time="0.003"/>
+  <testcase name="testCreateFont" classname="MavyPropsTest" time="0.676"/>
+  <testcase name="testShowStepsConstant" classname="MavyPropsTest" time="0.004"/>
+  <testcase name="testDisabledColor" classname="MavyPropsTest" time="0.003"/>
+  <testcase name="testForceCapitalize_case1" classname="MavyPropsTest" time="0.004"/>
+  <testcase name="testForceCapitalize_case2" classname="MavyPropsTest" time="0.004"/>
+  <testcase name="testForceCapitalize_case3" classname="MavyPropsTest" time="0.001"/>
 </testsuite>
