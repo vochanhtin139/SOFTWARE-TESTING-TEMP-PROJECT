@@ -5,4 +5,4 @@ script:
 
 env:
   global:
-    - COVERALLS_REPO_TOKEN=gW67ViufRGE6q1z3y52aZUphhEaKEqiSY
+    - COVERALLS_REPO_TOKEN=Z9ZEnYkJ7xD4LiwDcfD3wiRwHOGiPLNua
