@@ -12,6 +12,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Configure SonarQube server -->
         <sonar.host.url>http://localhost:9000</sonar.host.url>
         <sonar.login>sqp_e71d613afedadd72fb2d6369928a071afd753737</sonar.login>
     </properties>
@@ -91,6 +92,27 @@
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
                 <version>3.9.1.2184</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-maven</artifactId>
+                <version>1.16.1</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.pitest</groupId>
+                        <artifactId>pitest-junit5-plugin</artifactId>
+                        <version>1.0.0</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <targetClasses>
+                        <param>demo.*</param>
+                    </targetClasses>
+                    <targetTests>
+                        <param>*</param>
+                    </targetTests>
+                </configuration>
             </plugin>
         </plugins>
     </build>
