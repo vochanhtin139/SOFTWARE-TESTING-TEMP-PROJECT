@@ -1,0 +1,745 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MavySimpleCalculator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">simple-calculator</a> &gt; <a href="index.source.html" class="el_package">demo</a> &gt; <span class="el_source">MavySimpleCalculator.java</span></div><h1>MavySimpleCalculator.java</h1><pre class="source lang-java linenums">package demo;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+
+import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+import java.io.File;
+
+import java.net.URL;
+import java.net.MalformedURLException;
+
+/**
+ * ----------------------------------
+ * Author: Maverick G. Fabroa
+ * ----------------------------------
+ * Date: May 10, 2021
+ * ----------------------------------
+ */
+
+/**
+ * Global properties
+ */
+
+
+<span class="nc" id="L28">public class MavySimpleCalculator {</span>
+<span class="fc" id="L29">    private static final Dimension WIN_SIZE = new Dimension(450, 650);</span>
+<span class="fc" id="L30">    private static final Border PADDING = BorderFactory.createEmptyBorder(16, 16, 16, 16);</span>
+    private static final int POINT_LENGTH = 10;
+
+    /**
+     * REACTIVE PROPERTIES
+     */
+
+<span class="fc" id="L37">    private static int mode = 0;</span>
+<span class="fc" id="L38">    private static boolean isOn = false;</span>
+
+    /**
+     * Convert decimal number to binary
+     *
+     * &gt; Using my own original algorithm
+     *
+     * @param dec
+     * @return String
+     */
+    public static String convertDecimalToBinary(String dec) {
+        // Check if the decimal is not empty
+<span class="fc bfc" id="L50" title="All 2 branches covered.">        if (dec.length() &gt; 0) {</span>
+<span class="fc" id="L51">            String leftNum = &quot;&quot;;</span>
+<span class="fc" id="L52">            String rightNum = &quot;&quot;;</span>
+
+            // ==== COMPUTATION ==== //
+
+            try {
+                // Split the text by dots
+<span class="fc" id="L58">                final String[] splits = dec.split(&quot;\\.&quot;);</span>
+
+                // Convert the string to long
+<span class="fc bfc" id="L61" title="All 2 branches covered.">                long num = Long.parseLong(splits.length &gt; 1 ? splits[0] : dec);</span>
+
+                // While num is greater than 0
+<span class="fc bfc" id="L64" title="All 2 branches covered.">                while (num &gt; 0) {</span>
+                    // Get the remainder and append it to the output
+<span class="fc" id="L66">                    leftNum += num % 2;</span>
+                    // Divide the num by 2 without floating point
+<span class="fc" id="L68">                    num = Math.floorDiv(num, 2);</span>
+                }
+
+                // Splits is equal to 2 if there is a dot or point
+<span class="fc bfc" id="L72" title="All 2 branches covered.">                if (splits.length == 2) {</span>
+                    /**
+                     * Convert decimal point to binary
+                     */
+
+                    // Has floating point
+                    // Convert the decimal point to double
+                    // For intance, the value of splits[1] is 625
+                    //
+                    // Then pt would be 0.625
+<span class="fc" id="L82">                    double pt = Double.parseDouble(&quot;0.&quot; + splits[1]);</span>
+
+                    // Length tracker
+<span class="fc" id="L85">                    int ptLength = 0;</span>
+
+                    /**
+                     * Converting floating point number to binary
+                     *
+                     * 0.625 x 2 = 1.25  – 1
+                     * 0.25 x 2 = 0.5    – 0
+                     * 0.5 x 2 = 1.0     – 1
+                     *
+                     * Reset the whole number to 0 if it's 1
+                     */
+
+                    // While pt is not 0 and pt is less than 0
+<span class="pc bpc" id="L98" title="2 of 4 branches missed.">                    while (pt != 0 &amp;&amp; pt &lt; 1) {</span>
+                        // Multiply the point by 2
+<span class="fc" id="L100">                        pt *= 2;</span>
+
+                        //  If the pt is greater than or equal to 1, add 1 else 0
+<span class="fc bfc" id="L103" title="All 2 branches covered.">                        rightNum += (pt &gt;= 1) ? &quot;1&quot; : &quot;0&quot;;</span>
+
+                        // If pt is greater than 1,
+                        // then subtract it by it's whole number
+<span class="pc bpc" id="L107" title="1 of 2 branches missed.">                        if (pt &gt; 1) {</span>
+<span class="nc" id="L108">                            pt -= Math.floor(pt);</span>
+                        }
+
+                        // Increase the length counter
+<span class="fc" id="L112">                        ptLength++;</span>
+
+                        // If pt is equal to 1.0, then break the loop
+<span class="pc bpc" id="L115" title="1 of 4 branches missed.">                        if (pt == 1.0 || ptLength &gt;= POINT_LENGTH) {</span>
+<span class="nc" id="L116">                            break;</span>
+                        }
+                    }
+<span class="fc" id="L119">                }</span>
+<span class="fc bfc" id="L120" title="All 2 branches covered.">                else if (splits.length &gt; 2) {</span>
+                    // Multiple points
+<span class="fc" id="L122">                    return &quot;-3&quot;; // Please input only one dot</span>
+                }
+            }
+<span class="fc" id="L125">            catch (NumberFormatException e) {</span>
+<span class="fc" id="L126">                return &quot;-2&quot;; // Input numbers only</span>
+<span class="fc" id="L127">            }</span>
+
+            // ===================== //
+
+            // Check if it's floating point
+<span class="pc bpc" id="L132" title="1 of 4 branches missed.">            if (leftNum.length() &gt; 0 &amp;&amp; rightNum.length() &gt; 0) {</span>
+<span class="fc" id="L133">                return MavyProps.reverseString(leftNum) + &quot;.&quot; + rightNum;</span>
+            }
+
+<span class="fc" id="L136">            return MavyProps.reverseString(leftNum);</span>
+        }
+
+<span class="fc" id="L139">        return &quot;-1&quot;; // Please fill the decimal field</span>
+    }
+
+    /**
+     * Convert binary to decimal
+     *
+     * &gt; Using my own original algorithm
+     *
+     * @param bin
+     * @return
+     */
+    public static String convertBinaryToDecimal(String bin) {
+        // Check if the text is not empty
+<span class="fc bfc" id="L152" title="All 2 branches covered.">        if (bin.length() &gt; 0) {</span>
+            // Output bin
+<span class="fc" id="L154">            int leftBin = 0;</span>
+<span class="fc" id="L155">            double rightBin = 0;</span>
+
+            // Check if the binary contains only 0 and 1
+<span class="fc bfc" id="L158" title="All 2 branches covered.">            for (char b : bin.toCharArray()) {</span>
+<span class="fc bfc" id="L159" title="All 6 branches covered.">                if (b != '0' &amp;&amp; b != '1' &amp;&amp; b != '.') {</span>
+<span class="fc" id="L160">                    return &quot;-4&quot;; // Please input only 0 and 1&quot;</span>
+                }
+            }
+
+            // Split the text by dots
+<span class="fc" id="L165">            final String[] SPLITS = bin.split(&quot;\\.&quot;);</span>
+<span class="fc bfc" id="L166" title="All 2 branches covered.">            final boolean hasFloating = SPLITS.length == 2;</span>
+
+<span class="fc bfc" id="L168" title="All 2 branches covered.">            if (SPLITS.length &lt;= 2) {</span>
+                try {
+                    // Get the length of the whole number
+<span class="fc bfc" id="L171" title="All 2 branches covered.">                    final int LENGTH = hasFloating ? SPLITS[0].length() : bin.length();</span>
+<span class="fc bfc" id="L172" title="All 2 branches covered.">                    final String chToCompute = hasFloating ? SPLITS[0] : bin;</span>
+
+                    // For every character
+<span class="fc bfc" id="L175" title="All 2 branches covered.">                    for (int i = 1; i &lt;= LENGTH; i++) {</span>
+                        // If the character is 1, then add it's corresponding perfect square
+<span class="fc bfc" id="L177" title="All 2 branches covered.">                        if (chToCompute.charAt(i - 1) == '1') {</span>
+                            /**
+                             * Using the binary conversion table
+                             * If last element, add only 1
+                             *
+                             * For instance, 101
+                             *
+                             * 1st element = 1 = (2 ^ length - 1) = (2 ^ 3 - 1) = (2 ^ 2)
+                             * 2nd element = 0, so skip
+                             * 3rd element = 1 = (last element) = 1
+                             *
+                             * Subtotal:
+                             *
+                             * 1st = 4
+                             * 2nd = 0
+                             * 3rd = 1
+                             *
+                             * Total: 5
+                             */
+<span class="pc bpc" id="L196" title="1 of 2 branches missed.">                            leftBin += (i == LENGTH) ? 1 : (int)Math.pow(2, LENGTH - i);</span>
+                        }
+                    }
+
+                    // If the binary has a decimal point
+<span class="fc bfc" id="L201" title="All 2 branches covered.">                    if (hasFloating) {</span>
+<span class="fc" id="L202">                        final String pt = SPLITS[1];</span>
+
+<span class="fc bfc" id="L204" title="All 2 branches covered.">                        for (int i = 1; i &lt;= pt.length(); i++) {</span>
+<span class="fc" id="L205">                            final String ch = String.valueOf(pt.charAt(i - 1));</span>
+<span class="fc" id="L206">                            final double ans = Integer.parseInt(ch) * Math.pow(2, -i);</span>
+
+<span class="fc" id="L208">                            rightBin += ans;</span>
+                        }
+
+<span class="fc" id="L211">                        String finalPoint = String.valueOf(rightBin).replace(&quot;0.&quot;, &quot;&quot;);</span>
+
+<span class="fc" id="L213">                        return String.valueOf(leftBin) + &quot;.&quot; + finalPoint;</span>
+                    }
+
+<span class="fc" id="L216">                    return String.valueOf(leftBin);</span>
+                }
+<span class="nc" id="L218">                catch (Exception e) {</span>
+<span class="nc" id="L219">                    return &quot;-2&quot;; // An error has occured</span>
+                }
+            }
+            else {
+                // Multiple points
+<span class="fc" id="L224">                return &quot;-3&quot;; // Please input only one dot</span>
+            }
+        }
+
+<span class="fc" id="L228">        return &quot;-1&quot;; // Please fill the binary field</span>
+    }
+
+    /**
+     * Invoking my own algorithm for evaluating expressions with MDAS
+     *
+     * @param label
+     * @param inputPrevious
+     * @param input
+     */
+    private static void calculate(JLabel label, JLabel inputPrevious, String input) {
+<span class="nc" id="L239">        final String INPUT = input.replaceAll(&quot; &quot;, &quot;&quot;);</span>
+
+<span class="nc" id="L241">        MavyInputCalculator calculator = new MavyInputCalculator(INPUT);</span>
+<span class="nc" id="L242">        final String ANSWER = calculator.calculate();</span>
+
+<span class="nc bnc" id="L244" title="All 2 branches missed.">        if (ANSWER.startsWith(&quot;E: &quot;)) {</span>
+<span class="nc" id="L245">            final String ERROR = MavyProps.forceCapitalize(ANSWER.replace(&quot;E: &quot;, &quot;&quot;).replaceAll(&quot;_&quot;, &quot; &quot;));</span>
+
+<span class="nc bnc" id="L247" title="All 2 branches missed.">            if (ERROR.contains(&quot;For Input String&quot;)) {</span>
+<span class="nc" id="L248">                inputPrevious.setText(&quot;Malformed Expression&quot;);</span>
+            } else {
+<span class="nc" id="L250">                inputPrevious.setText(ERROR);</span>
+            }
+
+<span class="nc" id="L253">            inputPrevious.setForeground(MavyProps.RED_COLOR);</span>
+<span class="nc" id="L254">        }</span>
+        else {
+<span class="nc" id="L256">            label.setText(ANSWER);</span>
+<span class="nc" id="L257">            inputPrevious.setForeground(MavyProps.FORE_COLOR);</span>
+        }
+<span class="nc" id="L259">    }</span>
+
+    /**
+     * Switch between modes
+     *
+     *  Normal Mode        = 0
+     *  Decimal to Binary  = 1
+     *  Binary to Decimal  = 2
+     * ```
+     */
+    public static int switchMode(JLabel normal, JLabel db, JLabel bd) {
+<span class="fc" id="L270">        normal.setForeground(MavyProps.FORE_COLOR);</span>
+<span class="fc" id="L271">        db.setForeground(MavyProps.FORE_COLOR);</span>
+<span class="fc" id="L272">        bd.setForeground(MavyProps.FORE_COLOR);</span>
+
+        // Increment mode
+<span class="fc" id="L275">        mode++;</span>
+
+<span class="pc bpc" id="L277" title="1 of 4 branches missed.">        switch (mode % 3) {</span>
+            // Normal mode
+            case 0:
+<span class="fc" id="L280">                normal.setForeground(MavyProps.YELLOW_COLOR);</span>
+<span class="fc" id="L281">                break;</span>
+            // Decimal to Binary mode
+            case 1:
+<span class="fc" id="L284">                db.setForeground(MavyProps.YELLOW_COLOR);</span>
+<span class="fc" id="L285">                break;</span>
+            // Binary to Decimal mode
+            case 2:
+<span class="fc" id="L288">                bd.setForeground(MavyProps.YELLOW_COLOR);</span>
+                break;
+        }
+
+<span class="fc" id="L292">        return mode % 3;</span>
+    }
+
+    public static void main(String[] args) {
+        // Main frame
+<span class="nc" id="L297">        JFrame frame = new JFrame(&quot;Simple Calculator&quot;);</span>
+<span class="nc" id="L298">        frame.setSize(WIN_SIZE);</span>
+<span class="nc" id="L299">        frame.setMinimumSize(WIN_SIZE);</span>
+<span class="nc" id="L300">        frame.setLocationRelativeTo(null);</span>
+<span class="nc" id="L301">        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span>
+
+        /**
+         * Set icon
+         */
+        try {
+<span class="nc" id="L307">            URL image = new File(System.getProperty(&quot;user.dir&quot;) + &quot;/mavy-icon.png&quot;).toURI().toURL();</span>
+
+<span class="nc bnc" id="L309" title="All 2 branches missed.">            if (image != null) {</span>
+<span class="nc" id="L310">                ImageIcon icon = new ImageIcon(image);</span>
+<span class="nc" id="L311">                frame.setIconImage(icon.getImage());</span>
+            }
+        }
+<span class="nc" id="L314">        catch (MalformedURLException e) {</span>
+            // Do nothing
+<span class="nc" id="L316">        }</span>
+
+        /** ================== LAYOUTS ===================== */
+
+<span class="nc" id="L320">        BorderLayout panelLayout = new BorderLayout();</span>
+<span class="nc" id="L321">        panelLayout.setVgap(16);</span>
+
+<span class="nc" id="L323">        GridLayout inputPanelLayout = new GridLayout(3, 1);</span>
+<span class="nc" id="L324">        inputPanelLayout.setVgap(8);</span>
+
+<span class="nc" id="L326">        GridLayout input1PanelLayout = new GridLayout(1, 3);</span>
+<span class="nc" id="L327">        GridBagLayout buttonsPanelLayout = new GridBagLayout();</span>
+
+        /** ================= COMPONENTS ==================== */
+
+<span class="nc" id="L331">        JPanel panel = new JPanel(panelLayout);</span>
+<span class="nc" id="L332">        JPanel inputPanel = new JPanel(inputPanelLayout);</span>
+<span class="nc" id="L333">        JPanel buttonsPanel = new JPanel(buttonsPanelLayout);</span>
+<span class="nc" id="L334">        JPanel input1Panel = new JPanel(input1PanelLayout);</span>
+<span class="nc" id="L335">        JPanel input2Panel = new JPanel(new GridLayout(1, 1));</span>
+<span class="nc" id="L336">        JPanel input3Panel = new JPanel(new GridLayout(1, 1));</span>
+
+        // input1Panel's components
+<span class="nc" id="L339">        JLabel mode1 = new JLabel(&quot;Dec to Bin&quot;, SwingConstants.CENTER);</span>
+<span class="nc" id="L340">        JLabel mode2 = new JLabel(&quot;Bin to Dec&quot;, SwingConstants.CENTER);</span>
+<span class="nc" id="L341">        JLabel mode3 = new JLabel(&quot;Normal&quot;, SwingConstants.CENTER);</span>
+
+        // input2Panel's componenets
+<span class="nc" id="L344">        JLabel inputLabel = new JLabel(&quot; &quot;, SwingConstants.RIGHT);</span>
+
+        // input3Panel's components
+<span class="nc" id="L347">        JLabel inputPrevious = new JLabel(&quot; &quot;, SwingConstants.RIGHT);</span>
+
+        // 1st row
+<span class="nc" id="L350">        MavyButton addButton = new MavyButton(&quot;+&quot;, MavyProps.BLUE_COLOR);</span>
+<span class="nc" id="L351">        MavyButton subButton = new MavyButton(&quot;-&quot;, MavyProps.BLUE_COLOR);</span>
+<span class="nc" id="L352">        MavyButton mulButton = new MavyButton(&quot;x&quot;, MavyProps.BLUE_COLOR);</span>
+<span class="nc" id="L353">        MavyButton divButton = new MavyButton(&quot;/&quot;, MavyProps.BLUE_COLOR);</span>
+
+        // 2nd row
+<span class="nc" id="L356">        MavyButton num7Button = new MavyButton(&quot;7&quot;, MavyProps.GREEN_COLOR);</span>
+<span class="nc" id="L357">        MavyButton num8Button = new MavyButton(&quot;8&quot;, MavyProps.GREEN_COLOR);</span>
+<span class="nc" id="L358">        MavyButton num9Button = new MavyButton(&quot;9&quot;, MavyProps.GREEN_COLOR);</span>
+<span class="nc" id="L359">        MavyButton clearButton = new MavyButton(&quot;C&quot;, MavyProps.RED_COLOR);</span>
+
+        // 3rd row
+<span class="nc" id="L362">        MavyButton num4Button = new MavyButton(&quot;4&quot;, MavyProps.GREEN_COLOR);</span>
+<span class="nc" id="L363">        MavyButton num5Button = new MavyButton(&quot;5&quot;, MavyProps.GREEN_COLOR);</span>
+<span class="nc" id="L364">        MavyButton num6Button = new MavyButton(&quot;6&quot;, MavyProps.GREEN_COLOR);</span>
+<span class="nc" id="L365">        MavyButton switchModeButton = new MavyButton(&quot;S/M&quot;, MavyProps.YELLOW_COLOR);</span>
+
+        // 4th row
+<span class="nc" id="L368">        MavyButton num1Button = new MavyButton(&quot;1&quot;, MavyProps.GREEN_COLOR);</span>
+<span class="nc" id="L369">        MavyButton num2Button = new MavyButton(&quot;2&quot;, MavyProps.GREEN_COLOR);</span>
+<span class="nc" id="L370">        MavyButton num3Button = new MavyButton(&quot;3&quot;, MavyProps.GREEN_COLOR);</span>
+<span class="nc" id="L371">        MavyButton powerButton = new MavyButton(&quot;On&quot;);</span>
+
+        // 5th row
+<span class="nc" id="L374">        MavyButton num0Button = new MavyButton(&quot;0&quot;, MavyProps.GREEN_COLOR);</span>
+<span class="nc" id="L375">        MavyButton dotButton = new MavyButton(&quot;.&quot;, MavyProps.BLUE_COLOR);</span>
+<span class="nc" id="L376">        MavyButton equalsButton = new MavyButton(&quot;=&quot;, MavyProps.BLUE_COLOR);</span>
+
+        /** ==================== STYLES ===================== */
+
+<span class="nc" id="L380">        panel.setBorder(PADDING);</span>
+<span class="nc" id="L381">        panel.setBackground(MavyProps.DARK_COLOR);</span>
+
+<span class="nc" id="L383">        mode1.setForeground(MavyProps.FORE_COLOR);</span>
+<span class="nc" id="L384">        mode2.setForeground(MavyProps.FORE_COLOR);</span>
+<span class="nc" id="L385">        mode3.setForeground(MavyProps.FORE_COLOR);</span>
+
+<span class="nc" id="L387">        mode1.setFont(MavyProps.createFont(14));</span>
+<span class="nc" id="L388">        mode2.setFont(MavyProps.createFont(14));</span>
+<span class="nc" id="L389">        mode3.setFont(MavyProps.createFont(14));</span>
+
+<span class="nc" id="L391">        inputPanel.setBorder(PADDING);</span>
+<span class="nc" id="L392">        inputPanel.setBackground(MavyProps.SURFACE_COLOR);</span>
+
+<span class="nc" id="L394">        inputLabel.setFont(MavyProps.createFont(28));</span>
+<span class="nc" id="L395">        inputLabel.setForeground(MavyProps.FORE_COLOR);</span>
+
+<span class="nc" id="L397">        inputPrevious.setFont(MavyProps.createFont(18));</span>
+<span class="nc" id="L398">        inputPrevious.setForeground(MavyProps.FORE_COLOR);</span>
+
+<span class="nc" id="L400">        input1Panel.setBackground(MavyProps.SURFACE_COLOR);</span>
+<span class="nc" id="L401">        input2Panel.setBackground(MavyProps.SURFACE_COLOR);</span>
+<span class="nc" id="L402">        input3Panel.setBackground(MavyProps.SURFACE_COLOR);</span>
+
+<span class="nc" id="L404">        buttonsPanel.setBorder(PADDING);</span>
+<span class="nc" id="L405">        buttonsPanel.setBackground(MavyProps.SURFACE_COLOR);</span>
+
+<span class="nc" id="L407">        powerButton.setCustomEnabled(true);</span>
+<span class="nc" id="L408">        powerButton.setForeground(MavyProps.GREEN_COLOR);</span>
+
+        /** =============== EVENT LISTENERS ================== */
+
+<span class="nc" id="L412">        final ActionListener numListener = new ActionListener() {</span>
+            @Override
+            public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L415">                final Object src = e.getSource();</span>
+
+<span class="nc" id="L417">                String toAdd = &quot;&quot;;</span>
+
+<span class="nc bnc" id="L419" title="All 2 branches missed.">                if (src.equals(num0Button)) {</span>
+<span class="nc" id="L420">                    toAdd = &quot;0&quot;;</span>
+<span class="nc bnc" id="L421" title="All 2 branches missed.">                } else if (src.equals(num1Button)) {</span>
+<span class="nc" id="L422">                    toAdd = &quot;1&quot;;</span>
+<span class="nc bnc" id="L423" title="All 2 branches missed.">                } else if (src.equals(num2Button)) {</span>
+<span class="nc" id="L424">                    toAdd = &quot;2&quot;;</span>
+<span class="nc bnc" id="L425" title="All 2 branches missed.">                }  else if (src.equals(num3Button)) {</span>
+<span class="nc" id="L426">                    toAdd = &quot;3&quot;;</span>
+<span class="nc bnc" id="L427" title="All 2 branches missed.">                } else if (src.equals(num4Button)) {</span>
+<span class="nc" id="L428">                    toAdd = &quot;4&quot;;</span>
+<span class="nc bnc" id="L429" title="All 2 branches missed.">                } else if (src.equals(num5Button)) {</span>
+<span class="nc" id="L430">                    toAdd = &quot;5&quot;;</span>
+<span class="nc bnc" id="L431" title="All 2 branches missed.">                } else if (src.equals(num6Button)) {</span>
+<span class="nc" id="L432">                    toAdd = &quot;6&quot;;</span>
+<span class="nc bnc" id="L433" title="All 2 branches missed.">                } else if (src.equals(num7Button)) {</span>
+<span class="nc" id="L434">                    toAdd = &quot;7&quot;;</span>
+<span class="nc bnc" id="L435" title="All 2 branches missed.">                } else if (src.equals(num8Button)) {</span>
+<span class="nc" id="L436">                    toAdd = &quot;8&quot;;</span>
+<span class="nc bnc" id="L437" title="All 2 branches missed.">                } else if (src.equals(num9Button)) {</span>
+<span class="nc" id="L438">                    toAdd = &quot;9&quot;;</span>
+<span class="nc bnc" id="L439" title="All 2 branches missed.">                } else if (src.equals(dotButton)) {</span>
+<span class="nc" id="L440">                    toAdd = &quot;.&quot;;</span>
+<span class="nc bnc" id="L441" title="All 2 branches missed.">                } else if (src.equals(addButton)) {</span>
+<span class="nc" id="L442">                    toAdd = &quot; + &quot;;</span>
+<span class="nc bnc" id="L443" title="All 2 branches missed.">                } else if (src.equals(subButton)) {</span>
+<span class="nc" id="L444">                    toAdd = &quot; - &quot;;</span>
+<span class="nc bnc" id="L445" title="All 2 branches missed.">                } else if (src.equals(mulButton)) {</span>
+<span class="nc" id="L446">                    toAdd = &quot; x &quot;;</span>
+<span class="nc bnc" id="L447" title="All 2 branches missed.">                } else if (src.equals(divButton)) {</span>
+<span class="nc" id="L448">                    toAdd = &quot; / &quot;;</span>
+                }
+
+<span class="nc" id="L451">                inputLabel.setText(inputLabel.getText() + toAdd);</span>
+<span class="nc" id="L452">            }</span>
+        };
+
+        /**
+         * Attach listeners to the main buttons
+         */
+<span class="nc" id="L458">        num0Button.addActionListener(numListener);</span>
+<span class="nc" id="L459">        num1Button.addActionListener(numListener);</span>
+<span class="nc" id="L460">        num2Button.addActionListener(numListener);</span>
+<span class="nc" id="L461">        num3Button.addActionListener(numListener);</span>
+<span class="nc" id="L462">        num4Button.addActionListener(numListener);</span>
+<span class="nc" id="L463">        num5Button.addActionListener(numListener);</span>
+<span class="nc" id="L464">        num6Button.addActionListener(numListener);</span>
+<span class="nc" id="L465">        num7Button.addActionListener(numListener);</span>
+<span class="nc" id="L466">        num8Button.addActionListener(numListener);</span>
+<span class="nc" id="L467">        num9Button.addActionListener(numListener);</span>
+<span class="nc" id="L468">        dotButton.addActionListener(numListener);</span>
+<span class="nc" id="L469">        addButton.addActionListener(numListener);</span>
+<span class="nc" id="L470">        subButton.addActionListener(numListener);</span>
+<span class="nc" id="L471">        mulButton.addActionListener(numListener);</span>
+<span class="nc" id="L472">        divButton.addActionListener(numListener);</span>
+
+        /**
+         * Equal button listener
+         */
+<span class="nc" id="L477">        equalsButton.addActionListener(new ActionListener() {</span>
+            @Override
+            public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L480">                final String EXPRESSION = inputLabel.getText().trim();</span>
+
+<span class="nc bnc" id="L482" title="All 4 branches missed.">                switch (mode % 3) {</span>
+                    // Normal mode
+                    case 0:
+<span class="nc" id="L485">                        inputPrevious.setText(EXPRESSION);</span>
+<span class="nc" id="L486">                        calculate(inputLabel, inputPrevious, EXPRESSION);</span>
+<span class="nc" id="L487">                        break;</span>
+                    // Decimal to Binary
+                    case 1:
+<span class="nc" id="L490">                        final String BIN = convertDecimalToBinary(EXPRESSION);</span>
+
+<span class="nc bnc" id="L492" title="All 4 branches missed.">                        switch (BIN) {</span>
+                            // No decimal input
+                            case &quot;-1&quot;:
+<span class="nc" id="L495">                                inputPrevious.setText(&quot;Please fill-in the field&quot;);</span>
+<span class="nc" id="L496">                                inputPrevious.setForeground(MavyProps.RED_COLOR);</span>
+<span class="nc" id="L497">                                break;</span>
+                            // If has latters
+                            case &quot;-2&quot;:
+<span class="nc" id="L500">                                inputPrevious.setText(&quot;Please input only numbers&quot;);</span>
+<span class="nc" id="L501">                                inputPrevious.setForeground(MavyProps.RED_COLOR);</span>
+<span class="nc" id="L502">                                break;</span>
+                            // If has multiple dots
+                            case &quot;-3&quot;:
+<span class="nc" id="L505">                                inputPrevious.setText(&quot;Please input only one dot&quot;);</span>
+<span class="nc" id="L506">                                inputPrevious.setForeground(MavyProps.RED_COLOR);</span>
+<span class="nc" id="L507">                                break;</span>
+                            default:
+<span class="nc" id="L509">                                inputPrevious.setText(BIN);</span>
+<span class="nc" id="L510">                                inputPrevious.setForeground(MavyProps.FORE_COLOR);</span>
+                        }
+
+<span class="nc" id="L513">                        break;</span>
+                    // Binary to Decimal
+                    case 2:
+<span class="nc" id="L516">                        final String DECIMAL = convertBinaryToDecimal(EXPRESSION);</span>
+
+<span class="nc bnc" id="L518" title="All 5 branches missed.">                        switch (DECIMAL) {</span>
+                            // No decimal input
+                            case &quot;-1&quot;:
+<span class="nc" id="L521">                                inputPrevious.setText(&quot;Please fill-in the field&quot;);</span>
+<span class="nc" id="L522">                                inputPrevious.setForeground(MavyProps.RED_COLOR);</span>
+<span class="nc" id="L523">                                break;</span>
+                            // If has latters
+                            case &quot;-2&quot;:
+<span class="nc" id="L526">                                inputPrevious.setText(&quot;An error has occured&quot;);</span>
+<span class="nc" id="L527">                                inputPrevious.setForeground(MavyProps.RED_COLOR);</span>
+<span class="nc" id="L528">                                break;</span>
+                            // If has multiple dots
+                            case &quot;-3&quot;:
+<span class="nc" id="L531">                                inputPrevious.setText(&quot;Please input only one dot&quot;);</span>
+<span class="nc" id="L532">                                inputPrevious.setForeground(MavyProps.RED_COLOR);</span>
+<span class="nc" id="L533">                                break;</span>
+                            // If has any number other than 0 and 1
+                            case &quot;-4&quot;:
+<span class="nc" id="L536">                                inputPrevious.setText(&quot;Please input only 0 and 1&quot;);</span>
+<span class="nc" id="L537">                                inputPrevious.setForeground(MavyProps.RED_COLOR);</span>
+<span class="nc" id="L538">                                break;</span>
+                            default:
+<span class="nc" id="L540">                                inputPrevious.setForeground(MavyProps.FORE_COLOR);</span>
+<span class="nc" id="L541">                                inputPrevious.setText(DECIMAL);</span>
+                        }
+
+                        break;
+                }
+<span class="nc" id="L546">            }</span>
+        });
+
+        /**
+         * Clear button listener
+         */
+<span class="nc" id="L552">        clearButton.addActionListener(new ActionListener() {</span>
+            @Override
+            public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L555">                inputLabel.setText(&quot; &quot;);</span>
+<span class="nc" id="L556">                inputPrevious.setText(&quot; &quot;);</span>
+<span class="nc" id="L557">            }</span>
+        });
+
+        /**
+         * Switch mode button listener
+         */
+<span class="nc" id="L563">        switchModeButton.addActionListener(new ActionListener() {</span>
+            @Override
+            public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L566">                int mode = switchMode(mode3, mode1, mode2);</span>
+
+<span class="nc" id="L568">                inputLabel.setText(&quot; &quot;);</span>
+<span class="nc" id="L569">                inputPrevious.setText(&quot; &quot;);</span>
+
+<span class="nc bnc" id="L571" title="All 2 branches missed.">                num2Button.setCustomEnabled(mode != 2);</span>
+<span class="nc bnc" id="L572" title="All 2 branches missed.">                num3Button.setCustomEnabled(mode != 2);</span>
+<span class="nc bnc" id="L573" title="All 2 branches missed.">                num4Button.setCustomEnabled(mode != 2);</span>
+<span class="nc bnc" id="L574" title="All 2 branches missed.">                num5Button.setCustomEnabled(mode != 2);</span>
+<span class="nc bnc" id="L575" title="All 2 branches missed.">                num6Button.setCustomEnabled(mode != 2);</span>
+<span class="nc bnc" id="L576" title="All 2 branches missed.">                num7Button.setCustomEnabled(mode != 2);</span>
+<span class="nc bnc" id="L577" title="All 2 branches missed.">                num8Button.setCustomEnabled(mode != 2);</span>
+<span class="nc bnc" id="L578" title="All 2 branches missed.">                num9Button.setCustomEnabled(mode != 2);</span>
+
+<span class="nc bnc" id="L580" title="All 2 branches missed.">                addButton.setCustomEnabled(mode == 0);</span>
+<span class="nc bnc" id="L581" title="All 2 branches missed.">                subButton.setCustomEnabled(mode == 0);</span>
+<span class="nc bnc" id="L582" title="All 2 branches missed.">                mulButton.setCustomEnabled(mode == 0);</span>
+<span class="nc bnc" id="L583" title="All 2 branches missed.">                divButton.setCustomEnabled(mode == 0);</span>
+<span class="nc" id="L584">            }</span>
+        });
+
+        /**
+         * Power button listener
+         */
+<span class="nc" id="L590">        powerButton.addActionListener(new ActionListener() {</span>
+            @Override
+            public void actionPerformed(ActionEvent e) {
+<span class="nc bnc" id="L593" title="All 2 branches missed.">                isOn = !isOn;</span>
+
+<span class="nc bnc" id="L595" title="All 2 branches missed.">                if (!isOn) {</span>
+<span class="nc" id="L596">                    inputLabel.setText(&quot; &quot;);</span>
+<span class="nc" id="L597">                    inputPrevious.setText(&quot; &quot;);</span>
+<span class="nc" id="L598">                    mode = -1;</span>
+<span class="nc" id="L599">                    switchMode(mode3, mode1, mode2);</span>
+<span class="nc" id="L600">                    mode3.setForeground(MavyProps.FORE_COLOR);</span>
+                } else {
+<span class="nc" id="L602">                    mode3.setForeground(MavyProps.YELLOW_COLOR);</span>
+<span class="nc" id="L603">                    num0Button.setForeground(MavyProps.GREEN_COLOR);</span>
+<span class="nc" id="L604">                    num1Button.setForeground(MavyProps.GREEN_COLOR);</span>
+<span class="nc" id="L605">                    num2Button.setForeground(MavyProps.GREEN_COLOR);</span>
+<span class="nc" id="L606">                    num3Button.setForeground(MavyProps.GREEN_COLOR);</span>
+<span class="nc" id="L607">                    num4Button.setForeground(MavyProps.GREEN_COLOR);</span>
+<span class="nc" id="L608">                    num5Button.setForeground(MavyProps.GREEN_COLOR);</span>
+<span class="nc" id="L609">                    num6Button.setForeground(MavyProps.GREEN_COLOR);</span>
+<span class="nc" id="L610">                    num7Button.setForeground(MavyProps.GREEN_COLOR);</span>
+<span class="nc" id="L611">                    num8Button.setForeground(MavyProps.GREEN_COLOR);</span>
+<span class="nc" id="L612">                    num9Button.setForeground(MavyProps.GREEN_COLOR);</span>
+                }
+
+                /**
+                 * Disable or enable buttons
+                 * Using the custom enabling and disabling algorithm I made
+                 */
+<span class="nc" id="L619">                num0Button.setCustomEnabled(isOn);</span>
+<span class="nc" id="L620">                num1Button.setCustomEnabled(isOn);</span>
+<span class="nc" id="L621">                num2Button.setCustomEnabled(isOn);</span>
+<span class="nc" id="L622">                num3Button.setCustomEnabled(isOn);</span>
+<span class="nc" id="L623">                num4Button.setCustomEnabled(isOn);</span>
+<span class="nc" id="L624">                num5Button.setCustomEnabled(isOn);</span>
+<span class="nc" id="L625">                num6Button.setCustomEnabled(isOn);</span>
+<span class="nc" id="L626">                num7Button.setCustomEnabled(isOn);</span>
+<span class="nc" id="L627">                num8Button.setCustomEnabled(isOn);</span>
+<span class="nc" id="L628">                num9Button.setCustomEnabled(isOn);</span>
+
+<span class="nc" id="L630">                addButton.setCustomEnabled(isOn);</span>
+<span class="nc" id="L631">                subButton.setCustomEnabled(isOn);</span>
+<span class="nc" id="L632">                mulButton.setCustomEnabled(isOn);</span>
+<span class="nc" id="L633">                divButton.setCustomEnabled(isOn);</span>
+
+<span class="nc" id="L635">                switchModeButton.setCustomEnabled(isOn);</span>
+<span class="nc" id="L636">                clearButton.setCustomEnabled(isOn);</span>
+<span class="nc" id="L637">                dotButton.setCustomEnabled(isOn);</span>
+<span class="nc" id="L638">                equalsButton.setCustomEnabled(isOn);</span>
+
+<span class="nc bnc" id="L640" title="All 2 branches missed.">                powerButton.setText(isOn ? &quot;Off&quot; : &quot;On&quot;);</span>
+<span class="nc bnc" id="L641" title="All 2 branches missed.">                powerButton.setForeground(isOn ? MavyProps.RED_COLOR : MavyProps.GREEN_COLOR);</span>
+<span class="nc" id="L642">            }</span>
+        });
+
+        /** ============ ADDITION OF COMPONENTS ============== */
+
+<span class="nc" id="L647">        input1Panel.add(mode1);</span>
+<span class="nc" id="L648">        input1Panel.add(mode2);</span>
+<span class="nc" id="L649">        input1Panel.add(mode3);</span>
+
+<span class="nc" id="L651">        input2Panel.add(inputLabel);</span>
+<span class="nc" id="L652">        input3Panel.add(inputPrevious);</span>
+
+<span class="nc" id="L654">        inputPanel.add(input1Panel);</span>
+<span class="nc" id="L655">        inputPanel.add(input2Panel);</span>
+<span class="nc" id="L656">        inputPanel.add(input3Panel);</span>
+
+<span class="nc" id="L658">        GridBagConstraints gbc = new GridBagConstraints();</span>
+
+<span class="nc" id="L660">        gbc.gridx = 0;</span>
+<span class="nc" id="L661">        gbc.gridy = 0;</span>
+<span class="nc" id="L662">        gbc.fill = GridBagConstraints.BOTH;</span>
+<span class="nc" id="L663">        gbc.weightx = 1;</span>
+<span class="nc" id="L664">        gbc.weighty = 1;</span>
+<span class="nc" id="L665">        gbc.insets = new Insets(16, 8, 16, 8);</span>
+
+        // 1st row
+<span class="nc" id="L668">        buttonsPanel.add(addButton, gbc);</span>
+
+<span class="nc" id="L670">        gbc.gridx++;</span>
+<span class="nc" id="L671">        buttonsPanel.add(subButton, gbc);</span>
+
+<span class="nc" id="L673">        gbc.gridx++;</span>
+<span class="nc" id="L674">        buttonsPanel.add(mulButton, gbc);</span>
+
+<span class="nc" id="L676">        gbc.gridx++;</span>
+<span class="nc" id="L677">        buttonsPanel.add(divButton, gbc);</span>
+
+        // 2nd row
+<span class="nc" id="L680">        gbc.gridx = 0;</span>
+<span class="nc" id="L681">        gbc.gridy++;</span>
+
+<span class="nc" id="L683">        buttonsPanel.add(num7Button, gbc);</span>
+
+<span class="nc" id="L685">        gbc.gridx++;</span>
+<span class="nc" id="L686">        buttonsPanel.add(num8Button, gbc);</span>
+
+<span class="nc" id="L688">        gbc.gridx++;</span>
+<span class="nc" id="L689">        buttonsPanel.add(num9Button, gbc);</span>
+
+<span class="nc" id="L691">        gbc.gridx++;</span>
+<span class="nc" id="L692">        buttonsPanel.add(clearButton, gbc);</span>
+
+        // 3rd row
+<span class="nc" id="L695">        gbc.gridx = 0;</span>
+<span class="nc" id="L696">        gbc.gridy++;</span>
+
+<span class="nc" id="L698">        buttonsPanel.add(num4Button, gbc);</span>
+
+<span class="nc" id="L700">        gbc.gridx++;</span>
+<span class="nc" id="L701">        buttonsPanel.add(num5Button, gbc);</span>
+
+<span class="nc" id="L703">        gbc.gridx++;</span>
+<span class="nc" id="L704">        buttonsPanel.add(num6Button, gbc);</span>
+
+<span class="nc" id="L706">        gbc.gridx++;</span>
+<span class="nc" id="L707">        buttonsPanel.add(switchModeButton, gbc);</span>
+
+        // 4th row
+<span class="nc" id="L710">        gbc.gridx = 0;</span>
+<span class="nc" id="L711">        gbc.gridy++;</span>
+
+<span class="nc" id="L713">        buttonsPanel.add(num1Button, gbc);</span>
+
+<span class="nc" id="L715">        gbc.gridx++;</span>
+<span class="nc" id="L716">        buttonsPanel.add(num2Button, gbc);</span>
+
+<span class="nc" id="L718">        gbc.gridx++;</span>
+<span class="nc" id="L719">        buttonsPanel.add(num3Button, gbc);</span>
+
+<span class="nc" id="L721">        gbc.gridx++;</span>
+<span class="nc" id="L722">        buttonsPanel.add(powerButton, gbc);</span>
+
+        // 5th row
+<span class="nc" id="L725">        gbc.gridx = 0;</span>
+<span class="nc" id="L726">        gbc.gridy++;</span>
+
+<span class="nc" id="L728">        buttonsPanel.add(num0Button, gbc);</span>
+
+<span class="nc" id="L730">        gbc.gridx++;</span>
+<span class="nc" id="L731">        buttonsPanel.add(dotButton, gbc);</span>
+
+<span class="nc" id="L733">        gbc.gridx++;</span>
+<span class="nc" id="L734">        gbc.gridwidth = 2;</span>
+
+<span class="nc" id="L736">        buttonsPanel.add(equalsButton, gbc);</span>
+
+<span class="nc" id="L738">        panel.add(inputPanel, BorderLayout.NORTH);</span>
+<span class="nc" id="L739">        panel.add(buttonsPanel, BorderLayout.CENTER);</span>
+
+<span class="nc" id="L741">        frame.add(panel);</span>
+<span class="nc" id="L742">        frame.setVisible(true);</span>
+<span class="nc" id="L743">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

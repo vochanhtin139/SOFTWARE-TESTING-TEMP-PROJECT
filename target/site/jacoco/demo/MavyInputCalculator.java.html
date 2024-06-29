@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MavyInputCalculator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">simple-calculator</a> &gt; <a href="index.source.html" class="el_package">demo</a> &gt; <span class="el_source">MavyInputCalculator.java</span></div><h1>MavyInputCalculator.java</h1><pre class="source lang-java linenums">package demo;
+
+import java.util.HashMap;
+
+/**
+ * Original src.demo.MavyInputCalculator class
+ * &lt;p&gt;
+ * Note: This class is my own implementation of evaluating expressions
+ */
+public class MavyInputCalculator {
+<span class="fc" id="L11">    private String exp = &quot;&quot;;</span>
+<span class="fc" id="L12">    private char[] ops = {'x', '/', '+', '-'};</span>
+
+<span class="fc" id="L14">    public MavyInputCalculator(String input) {</span>
+<span class="fc" id="L15">        this.exp = input;</span>
+<span class="fc" id="L16">    }</span>
+
+    /**
+     * Check if the character passed is an operator
+     *
+     * @param ch
+     * @return boolean
+     */
+    private boolean checkOperation(char ch) {
+<span class="fc bfc" id="L25" title="All 2 branches covered.">        for (int i = 0; i &lt; this.ops.length; i++) {</span>
+<span class="fc bfc" id="L26" title="All 2 branches covered.">            if (ch == this.ops[i]) {</span>
+<span class="fc" id="L27">                return true;</span>
+            }
+        }
+
+<span class="fc" id="L31">        return false;</span>
+    }
+
+    /**
+     * Check if a string has operator
+     *
+     * @param input
+     * @return
+     */
+    private boolean hasOperator(String input) {
+        // Ignore &quot;-&quot; operator at first number
+<span class="fc bfc" id="L42" title="All 2 branches covered.">        for (int i = 1; i &lt; input.length(); i++) {</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">            if (checkOperation(input.charAt(i))) {</span>
+<span class="fc" id="L44">                return true;</span>
+            }
+        }
+
+<span class="fc" id="L48">        return false;</span>
+    }
+
+    /**
+     * Get the highest precidence operator in the input
+     *
+     * @param input
+     * @return
+     */
+    private char getHighestOperator(String input) {
+<span class="fc" id="L58">        final int mulIndex = input.indexOf(&quot;x&quot;, 1);</span>
+<span class="fc" id="L59">        final int divIndex = input.indexOf(&quot;/&quot;, 1);</span>
+<span class="fc" id="L60">        final int addIndex = input.indexOf(&quot;+&quot;, 1);</span>
+<span class="fc" id="L61">        final int subIndex = input.indexOf(&quot;-&quot;, 1);</span>
+
+<span class="pc bpc" id="L63" title="1 of 4 branches missed.">        if (mulIndex != -1 &amp;&amp; divIndex != -1) {</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">            return mulIndex &lt; divIndex ? 'x' : '/';</span>
+        }
+
+<span class="pc bpc" id="L67" title="5 of 8 branches missed.">        if (mulIndex != -1 &amp;&amp; (divIndex == -1 || addIndex == -1 || subIndex == -1)) {</span>
+<span class="fc" id="L68">            return 'x';</span>
+        }
+
+<span class="pc bpc" id="L71" title="5 of 8 branches missed.">        if (divIndex != -1 &amp;&amp; (mulIndex == -1 || addIndex == -1 || subIndex == -1)) {</span>
+<span class="fc" id="L72">            return '/';</span>
+        }
+
+<span class="pc bpc" id="L75" title="1 of 4 branches missed.">        if (addIndex != -1 &amp;&amp; subIndex != -1) {</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">            return addIndex &lt; subIndex ? '+' : '-';</span>
+        }
+
+<span class="pc bpc" id="L79" title="5 of 8 branches missed.">        if (addIndex != -1 &amp;&amp; (mulIndex == -1 || divIndex == -1 || subIndex == -1)) {</span>
+<span class="fc" id="L80">            return '+';</span>
+        }
+
+<span class="pc bpc" id="L83" title="6 of 8 branches missed.">        if (subIndex != -1 &amp;&amp; (mulIndex == -1 || divIndex == -1 || addIndex == -1)) {</span>
+<span class="fc" id="L84">            return '-';</span>
+        }
+
+<span class="nc" id="L87">        return ' ';</span>
+    }
+
+    /**
+     * Get the left and right operand of a specific expression with start index
+     *
+     * @param input
+     * @param start
+     * @return HashMap&lt;String, Object&gt;
+     */
+    private HashMap&lt;String, Object&gt; getLROperand(String input, int start) {
+<span class="fc" id="L98">        String leftOperand = &quot;&quot;;</span>
+<span class="fc" id="L99">        String rightOperand = &quot;&quot;;</span>
+
+<span class="fc" id="L101">        int startIndex = 0;</span>
+<span class="fc" id="L102">        int endIndex = 0;</span>
+
+        // Get left operand
+<span class="fc bfc" id="L105" title="All 2 branches covered.">        for (int j = start - 1; j &gt;= 0; j--) {</span>
+<span class="fc bfc" id="L106" title="All 2 branches covered.">            if (j - 1 &lt; 0) {</span>
+<span class="fc" id="L107">                startIndex = 0;</span>
+            } else {
+<span class="fc" id="L109">                startIndex = j + 1;</span>
+            }
+
+<span class="fc" id="L112">            char chp = input.charAt(j);</span>
+
+<span class="fc bfc" id="L114" title="All 2 branches covered.">            if (checkOperation(chp)) {</span>
+<span class="pc bpc" id="L115" title="1 of 4 branches missed.">                if (chp == '-' || chp == '+') {</span>
+<span class="fc bfc" id="L116" title="All 2 branches covered.">                    char cha = j - 1 &gt;= 0 ? input.charAt(j - 1) : ' ';</span>
+
+<span class="fc bfc" id="L118" title="All 2 branches covered.">                    if (!Character.isDigit(cha)) {</span>
+<span class="fc" id="L119">                        leftOperand += chp;</span>
+                    }
+<span class="fc" id="L121">                }</span>
+
+                break;
+            }
+
+<span class="fc" id="L126">            leftOperand += chp;</span>
+        }
+
+        // Get right operand
+<span class="fc bfc" id="L130" title="All 2 branches covered.">        for (int j = start + 1; j &lt; input.length(); j++) {</span>
+<span class="fc bfc" id="L131" title="All 2 branches covered.">            if (j + 1 &gt;= input.length()) {</span>
+<span class="fc" id="L132">                endIndex = input.length();</span>
+            } else {
+<span class="fc" id="L134">                endIndex = j;</span>
+            }
+
+<span class="fc" id="L137">            char chp = input.charAt(j);</span>
+
+<span class="pc bpc" id="L139" title="4 of 6 branches missed.">            if ((chp == '-' || chp == '+') &amp;&amp; j == start + 1) {</span>
+<span class="nc" id="L140">                rightOperand += chp;</span>
+<span class="nc" id="L141">                continue;</span>
+<span class="pc bpc" id="L142" title="1 of 2 branches missed.">            } else if (checkOperation(chp)) {</span>
+<span class="nc" id="L143">                break;</span>
+            }
+
+<span class="fc" id="L146">            rightOperand += chp;</span>
+        }
+
+<span class="fc" id="L149">        leftOperand = MavyProps.reverseString(leftOperand);</span>
+
+<span class="fc" id="L151">        HashMap&lt;String, Object&gt; output = new HashMap&lt;String, Object&gt;();</span>
+
+<span class="fc" id="L153">        output.put(&quot;leftOperand&quot;, leftOperand);</span>
+<span class="fc" id="L154">        output.put(&quot;rightOperand&quot;, rightOperand);</span>
+<span class="fc" id="L155">        output.put(&quot;startIndex&quot;, startIndex);</span>
+<span class="fc" id="L156">        output.put(&quot;endIndex&quot;, endIndex);</span>
+
+<span class="fc" id="L158">        return output;</span>
+    }
+
+    /**
+     * Handling Evaluation of the expression
+     *
+     * @param input
+     * @return String
+     */
+    private String evaluate(String input) {
+        // Check if it has operation
+        // If it has no operator, then return the input
+        // This can be used when evaluating is done
+<span class="fc bfc" id="L171" title="All 2 branches covered.">        if (!hasOperator(input)) {</span>
+<span class="fc" id="L172">            return input;</span>
+        }
+
+<span class="pc bpc" id="L175" title="1 of 2 branches missed.">        while (hasOperator(input)) {</span>
+<span class="fc" id="L176">            char op = getHighestOperator(input);</span>
+
+<span class="pc bpc" id="L178" title="1 of 2 branches missed.">            for (int j = 0; j &lt; input.length(); j++) {</span>
+<span class="fc" id="L179">                char ch = input.charAt(j);</span>
+
+                // Skip number sign on first number
+<span class="fc bfc" id="L182" title="All 6 branches covered.">                if ((ch == '-' || ch == '+') &amp;&amp; j == 0) {</span>
+<span class="fc" id="L183">                    continue;</span>
+                }
+
+<span class="fc bfc" id="L186" title="All 4 branches covered.">                if (checkOperation(ch) &amp;&amp; ch == op) {</span>
+<span class="fc" id="L187">                    HashMap&lt;String, Object&gt; val = getLROperand(input, j);</span>
+
+<span class="fc" id="L189">                    final String LEFT_OPERAND = (String) val.get(&quot;leftOperand&quot;);</span>
+<span class="fc" id="L190">                    final String RIGHT_OPERAND = (String) val.get(&quot;rightOperand&quot;);</span>
+<span class="fc" id="L191">                    final int START_INDEX = (int) val.get(&quot;startIndex&quot;);</span>
+<span class="fc" id="L192">                    final int END_INDEX = (int) val.get(&quot;endIndex&quot;);</span>
+
+                    /**
+                     * See evalutation steps
+                     */
+                    if (MavyProps.SHOW_STEPS) {
+                        System.out.printf(&quot;Operator: %-3c Input: %-20s  Left: %-10s Right: %-10s Evaluated: %s\n&quot;, op, input, LEFT_OPERAND, RIGHT_OPERAND, input.substring(START_INDEX, END_INDEX));
+                    }
+
+                    // Malformed Expression occured
+<span class="pc bpc" id="L202" title="1 of 4 branches missed.">                    if (LEFT_OPERAND.length() == 0 || RIGHT_OPERAND.length() == 0) {</span>
+<span class="fc" id="L203">                        return &quot;E: MALFORMED_EXPRESSION&quot;;</span>
+                    }
+
+                    try {
+<span class="fc" id="L207">                        double leftOperand = Double.parseDouble(LEFT_OPERAND);</span>
+<span class="fc" id="L208">                        double rightOperand = Double.parseDouble(RIGHT_OPERAND);</span>
+<span class="fc" id="L209">                        double answer = 0.0;</span>
+
+<span class="pc bpc" id="L211" title="1 of 5 branches missed.">                        switch (op) {</span>
+                            case 'x':
+<span class="fc" id="L213">                                answer = leftOperand * rightOperand;</span>
+<span class="fc" id="L214">                                break;</span>
+                            case '/':
+<span class="fc" id="L216">                                answer = leftOperand / rightOperand;</span>
+<span class="fc" id="L217">                                break;</span>
+                            case '+':
+<span class="fc" id="L219">                                answer = leftOperand + rightOperand;</span>
+<span class="fc" id="L220">                                break;</span>
+                            case '-':
+<span class="fc" id="L222">                                answer = leftOperand - rightOperand;</span>
+                                break;
+                        }
+
+<span class="fc" id="L226">                        final String evaluatedInput = input.replace(input.substring(START_INDEX, END_INDEX), String.valueOf(answer));</span>
+
+                        /**
+                         * Recursive method
+                         */
+<span class="fc" id="L231">                        return evaluate(evaluatedInput);</span>
+<span class="fc" id="L232">                    } catch (NumberFormatException e) {</span>
+<span class="fc" id="L233">                        return &quot;E: &quot; + e.getMessage();</span>
+                    }
+                }
+            }
+<span class="nc" id="L237">        }</span>
+
+<span class="nc" id="L239">        return input;</span>
+    }
+
+    /**
+     * Main calculation method
+     *
+     * @return String
+     */
+    public String calculate() {
+<span class="fc" id="L248">        String FINAL_ANSWER = evaluate(this.exp);</span>
+
+<span class="fc bfc" id="L250" title="All 2 branches covered.">        if (FINAL_ANSWER.endsWith(&quot;.0&quot;)) {</span>
+<span class="fc" id="L251">            FINAL_ANSWER = FINAL_ANSWER.substring(0, FINAL_ANSWER.length() - 2);</span>
+        }
+
+<span class="fc" id="L254">        return FINAL_ANSWER;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
